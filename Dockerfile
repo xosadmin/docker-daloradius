@@ -4,7 +4,7 @@ RUN apt-get update -y \
     && apt --no-install-recommends install apache2 php libapache2-mod-php \
                                     php-mysql php-zip php-mbstring php-common php-curl \
                                     php-gd php-db php-mail php-mail-mime \
-                                    mariadb-client freeradius-utils rsyslog git -y \
+                                    mariadb-client freeradius-utils rsyslog git vim nano -y \
     && apt-get clean
 
 WORKDIR /var/www
