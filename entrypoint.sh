@@ -85,7 +85,7 @@ EOF
 
     a2dissite 000-default.conf
     a2ensite operators.conf users.conf
-    systemctl apache2 reload
+    service apache2 reload
 
     touch /etc/daloradius.lock
 
