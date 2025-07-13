@@ -96,4 +96,8 @@ fi
 mkdir -p /var/run/apache2 /var/lock/apache2 /var/log/apache2
 
 echo "Starting apache2..."
+if [[ ! -d /var/run/apache2 ]] || [[ ! -d /var/lock/apache2 ]] || [[ ! -d /var/log/apache2 ]]; then
+    mkdir -p /var/run/apache2 /var/lock/apache2 /var/log/apache2
+fi
+source /etc/apache2/envvars
 apache2 -DFOREGROUND
