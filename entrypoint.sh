@@ -95,4 +95,4 @@ else
 fi
 
 echo "Starting apache2..."
-exec apache2 -DFOREGROUND
+apache2 -DFOREGROUND
