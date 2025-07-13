@@ -12,7 +12,7 @@ docker run -d --name daloradius \
   -e MYSQL_USER=<user> \
   -e MYSQL_PASSWORD=<password> \
   -e MYSQL_DBNAME=<database_name> \
-  -p 8080:8080 \
+  -p 8080:8080 -p 80:80 \
   xosadmin/docker-daloradius
 ```
   
