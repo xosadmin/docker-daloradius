@@ -12,6 +12,7 @@ WORKDIR /var/www
 RUN git clone https://github.com/lirantal/daloradius.git
 
 RUN mkdir -p /var/log/apache2/daloradius/{operators,users} \
+    && chown -R www-data:www-data /var/log/apache2/daloradius \
     && chown www-data:www-data /var/www/daloradius/contrib/scripts/dalo-crontab
 
 WORKDIR /var/www/daloradius/app/common/includes
