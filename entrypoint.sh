@@ -8,14 +8,16 @@ fi
 if [[ ! -f "/etc/daloradius.lock" ]]; then
     cd "/var/www/daloradius/contrib/db" || { echo "Failed to cd to daloRADIUS db dir"; exit 1; }
 
-    if ! mysql -h"$MYSQL_SERVER" -P"$MYSQL_PORT" -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DBNAME" < fr3-mariadb-freeradius.sql; then
-        echo "Failed to import fr3-mariadb-freeradius.sql" >&2
-        exit 1
-    fi
-
-    if ! mysql -h"$MYSQL_SERVER" -P"$MYSQL_PORT" -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DBNAME" < mariadb-daloradius.sql; then
-        echo "Failed to import mariadb-daloradius.sql" >&2
-        exit 1
+    if [[ -z "$DO_NOT_IMPORT_DB" ]]; then
+        if ! mysql -h"$MYSQL_SERVER" -P"$MYSQL_PORT" -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DBNAME" < fr3-mariadb-freeradius.sql; then
+            echo "Failed to import fr3-mariadb-freeradius.sql" >&2
+            exit 1
+        fi
+    
+        if ! mysql -h"$MYSQL_SERVER" -P"$MYSQL_PORT" -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DBNAME" < mariadb-daloradius.sql; then
+            echo "Failed to import mariadb-daloradius.sql" >&2
+            exit 1
+        fi
     fi
 
     cat <<EOF > /etc/apache2/envvars
