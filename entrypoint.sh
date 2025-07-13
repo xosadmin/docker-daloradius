@@ -19,21 +19,19 @@ if [[ ! -f "/etc/daloradius.lock" ]]; then
     fi
 
     cat <<EOF > /etc/apache2/envvars
-# daloRADIUS users interface port
+export APACHE_RUN_USER=www-data
+export APACHE_RUN_GROUP=www-data
+export APACHE_PID_FILE=/var/run/apache2/apache2.pid
+export APACHE_RUN_DIR=/var/run/apache2
+export APACHE_LOCK_DIR=/var/lock/apache2
+export APACHE_LOG_DIR=/var/log/apache2
 export DALORADIUS_USERS_PORT=80
-
-# daloRADIUS operators interface port
 export DALORADIUS_OPERATORS_PORT=8000
-
-# daloRADIUS package root directory
 export DALORADIUS_ROOT_DIRECTORY=/var/www/daloradius
-
-# daloRADIUS administrator's email
 export DALORADIUS_SERVER_ADMIN=admin@daloradius.local
 EOF
 
     cat <<EOF > /etc/apache2/ports.conf
-# daloRADIUS
 Listen \${DALORADIUS_USERS_PORT}
 Listen \${DALORADIUS_OPERATORS_PORT}
 EOF
@@ -87,12 +85,15 @@ EOF
 
     a2dissite 000-default.conf
     a2ensite operators.conf users.conf
+    systemctl apache2 reload
 
     touch /etc/daloradius.lock
 
 else
     echo "Skipping initialization..."
 fi
+
+mkdir -p /var/run/apache2 /var/lock/apache2 /var/log/apache2
 
 echo "Starting apache2..."
 apache2 -DFOREGROUND
