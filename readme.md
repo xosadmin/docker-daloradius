@@ -7,7 +7,7 @@ Run the container using the following command:
   
 ```bash
 docker run -d --name daloradius \
-  -e MYSQL_HOST=<host> \
+  -e MYSQL_SERVER=<host> \
   -e MYSQL_PORT=<port> \
   -e MYSQL_USER=<user> \
   -e MYSQL_PASSWORD=<password> \
