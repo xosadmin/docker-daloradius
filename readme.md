@@ -18,5 +18,6 @@ docker run -d --name daloradius \
   
 #### Note:  
 - This image disables TLS by default. If you need TLS support, you can compile by your own
-- The default login information (username / password): administrator / radius
+- To avoid from unexpected issue, please use the same database for daloradius and freeradius
+- The default login information (username / password): ``administrator`` / ``radius``
 - For more information, please refer to [https://github.com/lirantal/daloradius](https://github.com/lirantal/daloradius)  
